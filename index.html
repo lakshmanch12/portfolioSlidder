@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+    />
+    <title>index</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+  />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   <!-- Demo styles -->
+   <style>
+    html,
+    body {
+      position: relative;
+      height: 90%;
+    }
+
+    body {
+      background: ghostwhite;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin-top: px;
+      padding: px;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 20px;
+      background: #ffb3b3;
+
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      /*border:3px solid black;*/
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  
+  
+
+    <script src="./myjson.json"></script>
+    <!-- Swiper JS -->
+    
+     
+    <script>
+     function getData(status){
+      
+      
+        var orignalData = JSON.parse(data);
+        var actualData = orignalData.filter(a=>{if(a.status==status)return a})
+         
+
+
+        var add = '<div class="swiper mySwiper"><div class="swiper-wrapper ">'
+        for(let i=0; i<actualData.length; i++ )
+        {
+          
+          add += '<div class=" swiper-slide card" style="width: 22rem; float : left; margin:1px; text-align: center">'
+          add += '<img src="'+actualData[i].image+'" class="" alt="..." >'
+          add += '<div class="card-body">'
+          add += '<h5 class="card-title">'+actualData[i].imagename+'</h5>'
+          add += '<p class="card-text">'+actualData[i].price+'</p>'
+          add += '<p class="card-text" style="color:blue">'+actualData[i].actulprice+'</p>'
+                 add +='<div>'
+                 add +='<style>'
+                 add+='.checked {'
+                 add+='color: blue;}'
+                 add +='</style>'
+                 for(let j=0; j<5; j++)
+                {
+            let starValue =actualData[i].starratingValue*1>j?" checked":''
+                 add+=' <span class="fa fa-star'+starValue+'"></span>'
+                }
+                 add+='</div>'
+          // add += '<p class="card-text" style="color:blue">'+actualData[i].button+'</p>'
+          add += '<a href="#" class="btn btn-warning"><p class="card-text" style="color:">'+actualData[i].button+'</p></a>'
+          // add += '<a href="#" class="btn btn-warning">out of stock</a>'
+          add += '</div>'
+          add += '</div>'
+        }
+   
+        add += '</div>'
+        add += '<div class="swiper-button-prev"></div>'
+     add += '<div class="swiper-button-next"></div>'
+        add += '</div>'
+         
+          
+        document.getElementById("products").innerHTML=add;
+        changeSwiper()
+        
+      }
+    
+     
+    </script>
+    
+</head>
+
+<body onload="getData('available')">
+ 
+    <ul class="nav nav-tabs bg-dark" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="getData('available')">Available</button>
+        <a href="./available.html"></a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false" onclick="getData('upcoming')">Upcoming</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="getData('missed')">Missed</button>
+        </li>
+    </ul>
+    <div id="products"></div>
+<!-- <img id="photo" width="20%" height="20%"> -->
+</body>
+
+</html>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+   <script>
+    function changeSwiper() {
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 10,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 50,
+          },
+        },
+      });
+    }
+    </script>
