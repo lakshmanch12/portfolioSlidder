@@ -79,6 +79,8 @@
       
         var orignalData = JSON.parse(data);
         var actualData = orignalData.filter(a=>{if(a.status==status)return a})
+        
+        var btn = (status == 'available' ? 'Buy' : (status == 'upcoming' ? 'Coming Soon' : 'Out Of Stock'));
          
 
 
@@ -103,8 +105,9 @@
                  add+=' <span class="fa fa-star'+starValue+'"></span>'
                 }
                  add+='</div>'
-          // add += '<p class="card-text" style="color:blue">'+actualData[i].button+'</p>'
-          add += '<a href="#" class="btn btn-warning"><p class="card-text" style="color:">'+actualData[i].button+'</p></a>'
+                  add += '<a href="#" class="btn btn-warning"><p class="card-text" style="color:">'+btn+'</p></a>'
+           // add += '<p class="card-text" style="color:blue">'+button+'</p>'
+          // add += '<a href="#" class="btn btn-warning"><p class="card-text" style="color:">'+actualData[i].button+'</p></a>'
           // add += '<a href="#" class="btn btn-warning">out of stock</a>'
           add += '</div>'
           add += '</div>'
@@ -162,11 +165,11 @@
         breakpoints: {
           640: {
             slidesPerView: 2,
-            spaceBetween: 10,
+            spaceBetween: 20,
           },
           768: {
-            slidesPerView: 4,
-            spaceBetween: 40,
+            slidesPerView: 3,
+            spaceBetween: 30,
           },
           1024: {
             slidesPerView: 5,
